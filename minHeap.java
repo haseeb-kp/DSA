@@ -19,9 +19,9 @@ public public class minHeap {
         heap=array;
         for (int i=parent(heap.size()-1);i>=0;i--){
             shiftDown(i);
-
         }
     }
+
     private void shiftDown(int currentIdx){
         int endIdx =heap.size()-1; //end element index
         int leftIdx = leftChild(currentIdx);
@@ -42,7 +42,6 @@ public public class minHeap {
                 return;
             }
         }
-
     }
     private void shiftUp(int currentIdx){
         int parentIdx = parent(currentIdx);
@@ -97,6 +96,4 @@ public public class minHeap {
         heap.insert(15);
         heap.display();
     }
-} {
-    
 }

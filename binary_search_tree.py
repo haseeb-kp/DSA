@@ -1,5 +1,5 @@
 class Node:
-    def __init__(self, data):
+    def __init__(self, data,left=None, right=None):
         self.left = None
         self.right = None
         self.data = data
@@ -113,6 +113,31 @@ class BinarySearchTree:
             self.post_order_helper(node.right)
             print(node.data, end=" ")
 
+    def find_closest(self,target):
+        current_node = self.root
+        closest = current_node.data
+        while current_node is not None:
+            if abs(target - closest) > abs(target - current_node.data):
+                closest = current_node.data
+            if target < current_node.data:
+                current_node = current_node.left
+            elif target > current_node.data:
+                current_node = current_node.right
+            else:
+                break
+        return closest
+
+    def validate_bst(self,tree):  #O(n)T , O(d)S
+        return self.validate_bst_helper(tree,float('-inf'),float('inf'))
+
+    def validate_bst_helper(self,tree,min_value,max_value):
+        if tree is None:
+            return True
+        if tree.data < min_value or tree.data >= max_value:
+            return False
+        is_left_valid = self.validate_bst_helper(tree.left, min_value, tree.data)
+        return is_left_valid and self.validate_bst_helper(tree.right, tree.data, max_value)
+        
 
 
 tree = BinarySearchTree()
@@ -126,11 +151,24 @@ print("in order traversal")
 tree.remove(4)
 tree.in_order()
 print("in order traversal")
-# tree.pre_order()
-# print("pre order traversal")
-# tree.post_order()
-# print("post order traversal")
+tree.pre_order()
+print("pre order traversal")
+tree.post_order()
+print("post order traversal")
+print(tree.find_closest(12))
 
+'''root= Node(10, 
+                left=Node(5, 
+                              left=Node(2), 
+                              right=Node(7)
+                             ), 
+                right=Node(15, 
+                               right=Node(22)
+                              )
+               )
+root = Node(5,left=Node(1),right=Node(4,left=Node(3),right=Node(6)))
+
+print("result =", tree.validate_bst(root))'''
 
 
 
