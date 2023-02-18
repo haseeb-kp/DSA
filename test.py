@@ -30,21 +30,5 @@ print(dfs(A, graph))
 
 '''
 
-'''class Trie_node:
-    def __init__(self):
-        self.node = {}
-        self.end_of_word = False
 
-class Trie:
-    def __init__(self):
-        self.root = Trie_node()
-
-    def add_word(self,word):
-        current = self.root
-        for i in word:
-            if i not in current:
-                current[i] = Trie_node()'''
-
-def heap_sort(self):
-    f
             
