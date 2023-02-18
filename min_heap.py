@@ -7,10 +7,10 @@ class MinHeap:
         self.heap = array
         last_index = len(self.heap) - 1
         for i in range(self.parent(last_index), -1, -1):
-            self.shift_down(i)
+            self.shift_down(i,last_index)
 
-    def shift_down(self, current_index):
-        end_index = len(self.heap) - 1
+    def shift_down(self, current_index,end_index):
+        
         left_index = self.leftChild(current_index)
         while left_index <= end_index:
             right_index = self.rightChild(current_index)
@@ -29,7 +29,12 @@ class MinHeap:
             else:
                 #already satisfies heap property.thus break
                 return
-
+    def heap_sort(self):
+        for i in reversed(range(1,len(self.heap))):
+            self.heap[i],self.heap[0] = self.heap[0],self.heap[i]
+            self.shift_down(0,i-1)
+        return self.heap
+        
     def shift_up(self, current_index):
         parent_index = self.parent(current_index)
         while current_index > 0 and self.heap[parent_index] > self.heap[current_index]:
@@ -43,7 +48,7 @@ class MinHeap:
     def remove(self):
         self.heap[0], self.heap[len(self.heap) - 1] = self.heap[len(self.heap) - 1], self.heap[0]
         self.heap.pop()
-        self.shift_down(0)
+        self.shift_down(0,len(self.heap) - 1)
 
     def insert(self, value):
         self.heap.append(value) 
@@ -60,17 +65,19 @@ class MinHeap:
 
     def display(self):
         for i in range(0, len(self.heap), 1):
-            print(self.heap[i],end="")
+            print(self.heap[i],end="-->")
 
 
-min_heap = MinHeap([6, 2, 8])
-print("heap is:")
+min_heap = MinHeap([1,5,2,6,4,8])
+print(min_heap.heap_sort())
+
+# print("heap is:")
+# min_heap.display()
+# min_heap.insert(1)
+# min_heap.insert(5)
+# min_heap.insert(15)
+# print("After insertion:")
 min_heap.display()
-min_heap.insert(1)
-min_heap.insert(5)
-min_heap.insert(15)
-print("After insertion:")
-min_heap.display()
-min_heap.remove()
-print("After removal:")
-min_heap.display()
+# min_heap.remove()
+# print("After removal:")
+# min_heap.display()

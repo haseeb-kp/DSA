@@ -113,6 +113,17 @@ class BinarySearchTree:
             self.post_order_helper(node.right)
             print(node.data, end=" ")
 
+    def level_order(self):
+        queue = []
+        queue.append(self.root)
+        while len(queue) > 0:
+            curr = queue.pop(0)
+            print(curr.data)
+            if curr.left:
+                queue.append(curr.left)
+            if curr.right:
+                queue.append(curr.right)
+
     def find_closest(self,target):
         current_node = self.root
         closest = current_node.data
@@ -127,35 +138,38 @@ class BinarySearchTree:
                 break
         return closest
 
-    def validate_bst(self,tree):  #O(n)T , O(d)S
-        return self.validate_bst_helper(tree,float('-inf'),float('inf'))
+    def validate_bst(self):  #O(n)T , O(d)S
+        return self.validate_bst_helper(self.root,float('-inf'),float('inf'))
 
-    def validate_bst_helper(self,tree,min_value,max_value):
-        if tree is None:
+    def validate_bst_helper(self,node,min_value,max_value):
+        if node is None:
             return True
-        if tree.data < min_value or tree.data >= max_value:
+        if node.data < min_value or node.data >= max_value:
             return False
-        is_left_valid = self.validate_bst_helper(tree.left, min_value, tree.data)
-        return is_left_valid and self.validate_bst_helper(tree.right, tree.data, max_value)
+        is_left_valid = self.validate_bst_helper(node.left, min_value, node.data)
+        is_right_valid = self.validate_bst_helper(node.right, node.data, max_value)
+        return is_left_valid and is_right_valid
         
 
 
 tree = BinarySearchTree()
+tree.insert(50)
 tree.insert(10)
-tree.insert(8)
-tree.insert(4)
-tree.insert(9)
-tree.insert(11)
-tree.in_order()
-print("in order traversal")
-tree.remove(4)
+tree.insert(20)
+tree.insert(30)
+tree.insert(60)
+tree.insert(70)
+# print(tree.validate_bst())
+# tree.level_order()
+# print("in order traversal")
+# tree.remove(4)
 tree.in_order()
 print("in order traversal")
 tree.pre_order()
 print("pre order traversal")
 tree.post_order()
 print("post order traversal")
-print(tree.find_closest(12))
+# print(tree.find_closest(12))
 
 '''root= Node(10, 
                 left=Node(5, 
