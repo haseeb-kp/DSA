@@ -33,7 +33,7 @@ class Trie:
             if letter not in current.children:
                 return False
             current = current.children[letter]
-        return True
+        return Trie()
     
     def auto_complete(self,word):
         current = self.root

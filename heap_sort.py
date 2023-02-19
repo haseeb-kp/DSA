@@ -83,7 +83,6 @@ class Heap:
         for i in reversed(range(1,len(self.heap))):
             self.heap[i],self.heap[0] = self.heap[0],self.heap[i]
             self.shift_down(0,i-1)
-            print(self.heap)
         return self.heap
     
     def parent(self, i):
